@@ -63,7 +63,23 @@ svm1.fit(X_train,y_train)
 
 from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
+from sklearn.metrics import accuracy_score
+
 print('Setting 1:')
+print('Accuracy scores')
+y_pred = knn1.predict(X_test)
+print('KNeighbors:\nAccuracy: {}'.format(accuracy_score(y_test, y_pred)))
+
+y_pred = dt1.predict(X_test)
+print('DecisionTree:\nAccuracy: {}'.format(accuracy_score(y_test, y_pred)))
+
+y_pred = nb1.predict(X_test)
+print('NaiveBayes:\nAccuracy: {}'.format(accuracy_score(y_test, y_pred)))
+
+y_pred = svm1.predict(X_test)
+print('SVM:\nAccuracy: {}'.format(accuracy_score(y_test, y_pred)))
+
+print('Precision and recall for \'Food Relevant\'')
 y_pred = knn1.predict(X_test)
 print('KNeighbors:\nprecision: {}, recall: {}'.format(precision_score(y_test, y_pred),
                                                recall_score(y_test, y_pred)))
@@ -80,26 +96,57 @@ y_pred = svm1.predict(X_test)
 print('SVM:\nprecision: {}, recall: {}'.format(precision_score(y_test, y_pred),
                                                recall_score(y_test, y_pred)))
 
+print('Precision and recall for \'Food irrelevant\'')
+# The "positive" class is now flipped, precision and recall require info
+# regarding the class label which corresponds to the "relevant" label. So, the
+# same classifier works, but the labels have to be flipped.
+
+y_pred = knn1.predict(X_test)
+print('initial y_pred : {}'.format(y_pred))
+y_pred = [not label for label in y_pred]
+print('flipped y_pred : {}'.format(y_pred))
+print('KNeighbors:\nprecision: {}, recall: {}'.format(precision_score(y_test, y_pred),
+                                               recall_score(y_test, y_pred)))
+
+y_pred = dt1.predict(X_test)
+y_pred = [not label for label in y_pred]
+print('DecisionTree:\nprecision: {}, recall: {}'.format(precision_score(y_test, y_pred),
+                                               recall_score(y_test, y_pred)))
+
+y_pred = nb1.predict(X_test)
+y_pred = [not label for label in y_pred]
+print('Naive_bayes:\nprecision: {}, recall: {}'.format(precision_score(y_test, y_pred),
+                                               recall_score(y_test, y_pred)))
+
+y_pred = svm1.predict(X_test)
+y_pred = [not label for label in y_pred]
+print('SVM:\nprecision: {}, recall: {}'.format(precision_score(y_test, y_pred),
+                                               recall_score(y_test, y_pred)))
+
 print('\nSetting 2(5 fold cross validation):')
 from sklearn.model_selection import cross_val_score
 knn2 = KNeighborsClassifier()
+cv_accuracy = cross_val_score(knn2, X, y, cv=5)
 cv_precision = cross_val_score(knn2, X, y, cv=5, scoring='precision')
 cv_recall = cross_val_score(knn2, X, y, cv=5, scoring='recall')
-print('KNeighbors:\nprecision: {}, recall: {}'.format(cv_precision.mean(),
-                                                      cv_recall.mean()))
+print('KNeighbors:\nAccuracy: {}\nprecision: {}, recall: \
+      {}'.format(cv_accuracy.mean(),cv_precision.mean(), cv_recall.mean()))
 dt2 = DecisionTreeClassifier()
+cv_accuracy = cross_val_score(dt2, X, y, cv=5)
 cv_precision = cross_val_score(dt2, X, y, cv=5, scoring='precision')
 cv_recall = cross_val_score(dt2, X, y, cv=5, scoring='recall')
-print('DecisionTree:\nprecision: {}, recall: {}'.format(cv_precision.mean(),
-                                                      cv_recall.mean()))
+print('DecisionTree:\nAccuracy: {}\nprecision: {}, recall: \
+      {}'.format(cv_accuracy.mean(),cv_precision.mean(), cv_recall.mean()))
 nb2 = MultinomialNB()
+cv_accuracy = cross_val_score(nb2, X, y, cv=5)
 cv_precision = cross_val_score(nb2, X, y, cv=5, scoring='precision')
 cv_recall = cross_val_score(nb2, X, y, cv=5, scoring='recall')
-print('Naive_bayes:\nprecision: {}, recall: {}'.format(cv_precision.mean(),
-                                                      cv_recall.mean()))
+print('Naive_bayes:\nAccuracy: {}\nprecision: {}, recall: \
+      {}'.format(cv_accuracy.mean(),cv_precision.mean(), cv_recall.mean()))
 
 svm2 = SVC()
+cv_accuracy = cross_val_score(svm2, X, y, cv=5)
 cv_precision = cross_val_score(svm2, X, y, cv=5, scoring='precision')
 cv_recall = cross_val_score(svm2, X, y, cv=5, scoring='recall')
-print('SVM:\nprecision: {}, recall: {}'.format(cv_precision.mean(),
-                                                      cv_recall.mean()))
+print('SVM:\nAccuracy: {}\nprecision: {}, recall: \
+      {}'.format(cv_accuracy.mean(),cv_precision.mean(), cv_recall.mean()))
