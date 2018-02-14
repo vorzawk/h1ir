@@ -7,19 +7,50 @@
 # So, I am going to consider one fold and use the validation set like it is supposed to i.e to find the optimal hyperparameters and then evaluate the performance on the test set and average it out.
 # Actually, this isn't a whole lot different from what the handout suggests, I'll just do what is asked : train on training.txt and evaluate on test.txt
 
+echo Note: The first accuracy value is the training accuracy
+echo Default parameters
 echo Fold1
 ./svm_rank_learn -c 0.01 MQ2008/Fold1/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
 echo Fold2
 ./svm_rank_learn -c 0.01 MQ2008/Fold2/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
 echo Fold3
 ./svm_rank_learn -c 0.01 MQ2008/Fold3/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
 echo Fold4
 ./svm_rank_learn -c 0.01 MQ2008/Fold4/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
 echo Fold5
 ./svm_rank_learn -c 0.01 MQ2008/Fold5/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
 echo
+echo Doesn\'t look like the model is overfitting, so may be increasing the model complexity can help
+echo Try using an rbf kernel
+echo Fold1
+./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold1/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
+./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
+echo Fold2
+./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold2/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
+./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
+echo Fold3
+./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold3/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
+./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
+echo Fold4
+./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold4/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
+./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
+echo Fold5
+./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold5/train.txt model > /dev/null
+./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
+./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
+echo
+
