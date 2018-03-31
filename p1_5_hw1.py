@@ -3,7 +3,7 @@ import re
 from nltk.stem.porter import PorterStemmer
 
 # Read the training data file and extract all the features and labels
-with open('training_data_small.json') as file:
+with open('training_data_med.json') as file:
     listFeatures = []
     listLabels = []
     for line in file:
@@ -20,8 +20,8 @@ with open('training_data_small.json') as file:
                 dictFeatures[stemToken] += 1
             else:
                 dictFeatures[stemToken] = 1
-        dictFeatures['usefulness'] = data['votes']['useful']
-        dictFeatures['stars'] = data['stars']
+ #       dictFeatures['usefulness'] = data['votes']['useful']
+#      dictFeatures['stars'] = data['stars']
         listLabels.append(data['label'])
         listFeatures.append(dictFeatures)
 

@@ -9,48 +9,118 @@
 
 echo Note: The first accuracy value is the training accuracy
 echo Default parameters
+ echo Fold1
+ ./svm_rank_learn -c 0.01 MQ2008/Fold1/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
+ echo Fold2
+ ./svm_rank_learn -c 0.01 MQ2008/Fold2/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
+ echo Fold3
+ ./svm_rank_learn -c 0.01 MQ2008/Fold3/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
+ echo Fold4
+ ./svm_rank_learn -c 0.01 MQ2008/Fold4/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
+ echo Fold5
+ ./svm_rank_learn -c 0.01 MQ2008/Fold5/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
+ echo
+ echo Doesn\'t look like the model is overfitting, so may be increasing the model complexity can help
+ echo Using an rbf kernel would have been a good idea but the model takes forever to run!
+ 
+ echo Trying with c = 100.0
+ echo Fold1
+ ./svm_rank_learn -c 100.0 MQ2008/Fold1/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
+ echo Fold2
+ ./svm_rank_learn -c 100.0 MQ2008/Fold2/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
+ echo Fold3
+ ./svm_rank_learn -c 100.0 MQ2008/Fold3/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
+ echo Fold4
+ ./svm_rank_learn -c 100.0 MQ2008/Fold4/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
+ echo Fold5
+ ./svm_rank_learn -c 100.0 MQ2008/Fold5/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
+ echo
+
+echo c doesn\'t seem to have much impact, try varying the norm
 echo Fold1
-./svm_rank_learn -c 0.01 MQ2008/Fold1/train.txt model > /dev/null
+./svm_rank_learn -c 0.01 -p 2 MQ2008/Fold1/train.txt model > /dev/null
 ./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
 echo Fold2
-./svm_rank_learn -c 0.01 MQ2008/Fold2/train.txt model > /dev/null
+./svm_rank_learn -c 0.01 -p 2 MQ2008/Fold2/train.txt model > /dev/null
 ./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
 echo Fold3
-./svm_rank_learn -c 0.01 MQ2008/Fold3/train.txt model > /dev/null
+./svm_rank_learn -c 0.01 -p 2 MQ2008/Fold3/train.txt model > /dev/null
 ./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
 echo Fold4
-./svm_rank_learn -c 0.01 MQ2008/Fold4/train.txt model > /dev/null
+./svm_rank_learn -c 0.01 -p 2 MQ2008/Fold4/train.txt model > /dev/null
 ./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
 echo Fold5
-./svm_rank_learn -c 0.01 MQ2008/Fold5/train.txt model > /dev/null
+./svm_rank_learn -c 0.01 -p 2 MQ2008/Fold5/train.txt model > /dev/null
 ./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
 ./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
-echo
-echo Doesn\'t look like the model is overfitting, so may be increasing the model complexity can help
-echo Try using an rbf kernel
-echo Fold1
-./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold1/train.txt model > /dev/null
-./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
-./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
-echo Fold2
-./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold2/train.txt model > /dev/null
-./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
-./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
-echo Fold3
-./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold3/train.txt model > /dev/null
-./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
-./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
-echo Fold4
-./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold4/train.txt model > /dev/null
-./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
-./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
-echo Fold5
-./svm_rank_learn -c 0.01 -t 1 -d 2 MQ2008/Fold5/train.txt model > /dev/null
-./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
-./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
-echo
+
+echo L2 norm gives a slight improvement
+ echo try the other loss function
+ 
+ echo Fold1
+ ./svm_rank_learn -c 0.01 -p 2 -l 2 MQ2008/Fold1/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
+ echo Fold2
+ ./svm_rank_learn -c 0.01 -p 2 -l 2 MQ2008/Fold2/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
+ echo Fold3
+ ./svm_rank_learn -c 0.01 -p 2 -l 2 MQ2008/Fold3/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
+ echo Fold4
+ ./svm_rank_learn -c 0.01 -p 2 -l 2 MQ2008/Fold4/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
+ echo Fold5
+ ./svm_rank_learn -c 0.01 -p 2 -l 2 MQ2008/Fold5/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
+
+ echo -o 1
+ echo Fold1
+ ./svm_rank_learn -c 100.0 -p 2 -o 1 MQ2008/Fold1/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold1/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold1/test.txt model | grep Zero
+ echo Fold2
+ ./svm_rank_learn -c 100.0 -p 2 -o 1 MQ2008/Fold2/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold2/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold2/test.txt model | grep Zero
+ echo Fold3
+ ./svm_rank_learn -c 100.0 -p 2 -o 1 MQ2008/Fold3/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold3/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold3/test.txt model | grep Zero
+ echo Fold4
+ ./svm_rank_learn -c 100.0 -p 2 -o 1 MQ2008/Fold4/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold4/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold4/test.txt model | grep Zero
+ echo Fold5
+ ./svm_rank_learn -c 100.0 -p 2 -o 1 MQ2008/Fold5/train.txt model > /dev/null
+ ./svm_rank_classify MQ2008/Fold5/train.txt model | grep Zero
+ ./svm_rank_classify MQ2008/Fold5/test.txt model | grep Zero
 
